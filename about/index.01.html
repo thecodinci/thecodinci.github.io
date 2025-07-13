@@ -3,26 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About | Codinci</title>
+  <title>About - Codinci</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     html {
       scroll-behavior: smooth;
     }
 
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Inter', sans-serif;
+      margin: 0;
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      line-height: 1.6;
     }
 
     nav {
@@ -30,22 +23,18 @@
       padding: 1em 2em;
       display: flex;
       justify-content: flex-end;
-      align-items: center;
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
       backdrop-filter: blur(6px);
+      z-index: 1000;
     }
 
     nav a {
       color: #fff;
+      margin-left: 20px;
       text-decoration: none;
       font-weight: 500;
-      margin-left: 24px;
-      font-size: 1rem;
-      white-space: nowrap;
+      transition: opacity 0.3s ease;
     }
 
     nav a:hover {
@@ -53,10 +42,9 @@
     }
 
     .container {
-      flex: 1;
       max-width: 960px;
       margin: 0 auto;
-      padding: 140px 20px 60px;
+      padding: 40px 20px;
     }
 
     h1 {
@@ -73,11 +61,10 @@
     p {
       font-size: 1.05em;
       color: #ccc;
-      margin-bottom: 1em;
     }
 
     ul {
-      margin: 1em 0 1.5em;
+      margin: 1em 0;
       padding-left: 1.5em;
     }
 
@@ -105,36 +92,9 @@
       margin: 2em 0;
     }
 
-    footer {
-      text-align: center;
-      font-size: 0.9em;
-      color: #999;
-      padding: 20px;
-    }
-
-    footer a {
-      color: #ccc;
-      text-decoration: none;
-      margin-left: 10px;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* === Mobile Styles === */
     @media (max-width: 600px) {
       nav {
-        flex-direction: column;
         justify-content: center;
-        align-items: center;
-        padding: 1em;
-        gap: 0.5em;
-      }
-
-      nav a {
-        margin: 0;
-        font-size: 1.1em;
       }
 
       h1 {
@@ -143,15 +103,6 @@
 
       h2 {
         font-size: 1.3em;
-      }
-
-      p, ul {
-        font-size: 1em;
-        padding-right: 0.5em;
-      }
-
-      ul {
-        padding-left: 1.2em;
       }
     }
   </style>
@@ -222,11 +173,6 @@
     <p>📧 <a href="mailto:bcc@codinci.com">bcc@codinci.com</a><br>
        🌍 <a href="http://codinci.com" target="_blank">codinci.com</a></p>
   </div>
-
-  <footer>
-    &copy; 2025 Codinci
-    | <a href="mailto:bcc@codinci.com">Contact Us</a>
-  </footer>
 
 </body>
 </html>

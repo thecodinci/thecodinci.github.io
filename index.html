@@ -10,17 +10,20 @@
       scroll-behavior: smooth;
     }
 
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      margin: 0;
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       color: #fff;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding-top: 80px;
+      overflow-x: hidden;
     }
 
     nav {
@@ -28,42 +31,55 @@
       padding: 1em 2em;
       display: flex;
       justify-content: flex-end;
+      align-items: center;
       position: fixed;
       top: 0;
-      width: 100%;
-      backdrop-filter: blur(6px);
+      left: 0;
+      right: 0;
       z-index: 1000;
+      backdrop-filter: blur(6px);
     }
 
     nav a {
       color: #fff;
-      margin-left: 20px;
       text-decoration: none;
       font-weight: 500;
-      transition: opacity 0.3s ease;
+      margin-left: 24px;
+      font-size: 1rem;
+      white-space: nowrap;
     }
 
     nav a:hover {
       opacity: 0.75;
     }
 
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+    }
+
     h1 {
-      font-size: 3em;
+      font-size: 2.8em;
       font-weight: 700;
       margin-bottom: 0.4em;
     }
 
     p {
-      font-size: 1.4em;
+      font-size: 1.3em;
       font-weight: 400;
       color: #cccccc;
     }
 
     footer {
-      position: absolute;
-      bottom: 20px;
+      text-align: center;
       font-size: 0.9em;
       color: #999;
+      padding: 20px;
     }
 
     footer a {
@@ -76,9 +92,19 @@
       text-decoration: underline;
     }
 
+    /* === Mobile Styles === */
     @media (max-width: 600px) {
       nav {
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
+        padding: 1em;
+        gap: 0.5em;
+      }
+
+      nav a {
+        margin: 0;
+        font-size: 1.1em;
       }
 
       h1 {
@@ -86,7 +112,13 @@
       }
 
       p {
-        font-size: 1.2em;
+        font-size: 1.1em;
+        padding: 0 10px;
+      }
+
+      footer {
+        font-size: 0.85em;
+        padding: 1.5em 1em;
       }
     }
   </style>
@@ -98,8 +130,10 @@
     <a href="about/">About</a>
   </nav>
 
-  <h1>Codinci</h1>
-  <p>Innovative code, Human touch</p>
+  <main>
+    <h1>Codinci</h1>
+    <p>Innovative code, Human touch</p>
+  </main>
 
   <footer>
     &copy; 2025 Codinci
