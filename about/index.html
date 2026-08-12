@@ -19,14 +19,58 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --accent: #4ecdc4;
+      --accent-2: #7f9cf5;
+      --ink: #f4f8f9;
+      --muted: #a8bcc4;
+      --line: rgba(255, 255, 255, 0.1);
+      --card: rgba(255, 255, 255, 0.045);
+    }
+
     body {
       font-family: 'Work Sans', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
+      background: #0f2027;
+      color: var(--ink);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient background: base gradient + two soft accent glows */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    }
+
+    .backdrop::before,
+    .backdrop::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.35;
+    }
+
+    .backdrop::before {
+      width: 45vw;
+      height: 45vw;
+      top: -10vw;
+      left: -8vw;
+      background: #4ecdc4;
+    }
+
+    .backdrop::after {
+      width: 40vw;
+      height: 40vw;
+      bottom: -12vw;
+      right: -10vw;
+      background: #7f9cf5;
+      opacity: 0.25;
     }
 
     .nav-container {
@@ -37,7 +81,7 @@
     }
 
     nav {
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(10, 22, 28, 0.55);
       padding: 1em 1.5em;
       display: flex;
       justify-content: space-between;
@@ -47,12 +91,15 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
     }
 
     .logo {
       font-weight: 600;
       font-size: 1.2em;
+      letter-spacing: -0.01em;
     }
 
     .nav-links {
@@ -66,10 +113,17 @@
       font-weight: 500;
       font-size: 1rem;
       white-space: nowrap;
+      opacity: 0.85;
+      transition: opacity 0.2s ease;
     }
 
-    .nav-links a:hover {
-      opacity: 0.75;
+    .nav-links a:hover,
+    .nav-links a.active {
+      opacity: 1;
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
     }
 
     .hamburger {
@@ -99,6 +153,7 @@
       gap: 20px;
       transition: right 0.3s ease-in-out;
       z-index: 999;
+      border-left: 1px solid var(--line);
     }
 
     .mobile-menu a {
@@ -113,43 +168,121 @@
 
     .container {
       flex: 1;
-      max-width: 960px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 140px 20px 60px;
+      width: 100%;
+      padding: 160px 24px 80px;
+    }
+
+    /* ---------- Hero ---------- */
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(78, 205, 196, 0.35);
+      background: rgba(78, 205, 196, 0.08);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.18);
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.5em;
+      font-size: clamp(2.6rem, 7vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.35em;
+      background: linear-gradient(120deg, #ffffff 20%, #9fe5df 60%, #7f9cf5 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lede {
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .lede strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ---------- Section scaffolding ---------- */
+
+    section {
+      margin-top: 88px;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .section-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--line), transparent);
     }
 
     h2 {
-      font-size: 1.5em;
-      margin-top: 2em;
-      color: #fff;
+      font-size: clamp(1.5rem, 3.4vw, 2rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 0.6em;
     }
 
     p {
-      font-size: 1.05em;
-      color: #ccc;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--muted);
       margin-bottom: 1em;
+      max-width: 68ch;
     }
 
-    ul {
-      margin: 1em 0 1.5em;
-      padding-left: 1.5em;
-    }
-
-    ul li {
-      margin-bottom: 0.5em;
+    p:last-child {
+      margin-bottom: 0;
     }
 
     strong {
-      color: #fff;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    em {
+      color: var(--accent);
+      font-style: normal;
+      font-weight: 500;
     }
 
     a {
-      color: #4ecdc4;
+      color: var(--accent);
       text-decoration: none;
     }
 
@@ -157,28 +290,237 @@
       text-decoration: underline;
     }
 
-    .divider {
-      border: none;
-      height: 1px;
-      background: #444;
-      margin: 2em 0;
+    /* ---------- Cards ---------- */
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 32px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
     }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(78, 205, 196, 0.35);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    /* Mission banner */
+
+    .mission {
+      position: relative;
+      overflow: hidden;
+      padding: 40px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(78, 205, 196, 0.14), rgba(127, 156, 245, 0.1));
+    }
+
+    .mission::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-2));
+    }
+
+    .mission p {
+      font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+      line-height: 1.5;
+      color: var(--ink);
+      font-weight: 500;
+      max-width: 30ch;
+    }
+
+    /* Principles */
+
+    .principle {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .principle .icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      font-size: 1.25rem;
+      background: rgba(78, 205, 196, 0.12);
+      border: 1px solid rgba(78, 205, 196, 0.25);
+    }
+
+    .principle h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .principle p {
+      font-size: 0.98rem;
+      margin: 0;
+    }
+
+    /* Services */
+
+    .service h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .service ul {
+      list-style: none;
+    }
+
+    .service li {
+      position: relative;
+      padding-left: 22px;
+      padding-bottom: 12px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .service li:last-child {
+      padding-bottom: 0;
+    }
+
+    .service li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent);
+    }
+
+    /* ---------- Contact ---------- */
+
+    .contact {
+      text-align: center;
+      padding: 52px 32px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .contact h2 {
+      margin-bottom: 0.4em;
+    }
+
+    .contact p {
+      margin: 0 auto 28px;
+    }
+
+    .contact-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 26px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      color: #0f2027;
+      box-shadow: 0 8px 24px rgba(78, 205, 196, 0.22);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 30px rgba(78, 205, 196, 0.32);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    /* ---------- Footer ---------- */
 
     footer {
       text-align: center;
       font-size: 0.9em;
-      color: #999;
-      padding: 20px;
+      color: #8fa3ab;
+      padding: 28px 20px;
+      border-top: 1px solid var(--line);
     }
 
     footer a {
-      color: #ccc;
+      color: #c3d3d9;
       text-decoration: none;
       margin-left: 10px;
     }
 
     footer a:hover {
       text-decoration: underline;
+    }
+
+    /* ---------- Scroll reveal ---------- */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      * {
+        scroll-behavior: auto !important;
+      }
     }
 
     @media (max-width: 768px) {
@@ -195,36 +537,43 @@
       }
 
       .container {
-        padding-top: 120px;
+        padding: 120px 20px 60px;
       }
 
-      h1 {
-        font-size: 2em;
+      section {
+        margin-top: 64px;
       }
 
-      h2 {
-        font-size: 1.3em;
+      .grid-2 {
+        grid-template-columns: 1fr;
       }
 
-      p, ul {
-        font-size: 1em;
-        padding-right: 0.5em;
+      .card,
+      .mission {
+        padding: 26px;
       }
 
-      ul {
-        padding-left: 1.2em;
+      .contact {
+        padding: 40px 24px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
       }
     }
   </style>
 </head>
 <body>
 
+  <div class="backdrop"></div>
+
   <div class="nav-container">
     <nav>
       <div class="logo">Codinci</div>
       <div class="nav-links">
         <a href="../">Home</a>
-        <a href="#">About</a>
+        <a href="#" class="active">About</a>
       </div>
       <div class="hamburger" onclick="toggleMenu()">
         <div></div>
@@ -239,51 +588,85 @@
   </div>
 
   <div class="container">
-    <h1>Codinci</h1>
-    <p><strong>Codinci</strong> is a modern professional service provider and startup at the intersection of creativity and human-centered design that focuses on manufacturing, energy, and healthcare industries.</p>
 
-    <hr class="divider" />
+    <header class="reveal">
+      <span class="eyebrow">About Codinci</span>
+      <h1>Innovative code,<br>human touch.</h1>
+      <p class="lede"><strong>Codinci</strong> is a modern professional service provider and startup at the intersection of creativity and human-centered design that focuses on manufacturing, energy, and healthcare industries.</p>
+    </header>
 
-    <h2>🚀 Mission</h2>
-    <p>Building a better world through human-centered services and innovation</p>
+    <section class="reveal">
+      <div class="section-label">Mission</div>
+      <div class="mission">
+        <p>Building a better world through human-centered services and innovation.</p>
+      </div>
+    </section>
 
-    <h2>💡 Why "Codinci"?</h2>
-    <p>Inspired by <strong>Leonardo da Vinci</strong>, the name <strong>Codinci</strong> fuses <em>"code"</em> with <em>"da Vinci"</em> — honoring creativity, intellect, and timeless innovation.</p>
-    <p>It represents the belief that <strong>human-centered service is an art</strong>, and innovation should be powerful and beautiful.</p>
+    <section class="reveal">
+      <div class="section-label">The Name</div>
+      <h2>Why &ldquo;Codinci&rdquo;?</h2>
+      <p>Inspired by <strong>Leonardo da Vinci</strong>, the name <strong>Codinci</strong> fuses <em>code</em> with <em>da Vinci</em> — honoring creativity, intellect, and timeless innovation.</p>
+      <p>It represents the belief that <strong>human-centered service is an art</strong>, and innovation should be powerful and beautiful.</p>
+    </section>
 
-    <h2>❤️ Core Principles</h2>
-    <ul>
-      <li>Human-Centered Services</li>
-      <li>Speed with Purpose</li>
-    </ul>
+    <section class="reveal">
+      <div class="section-label">Core Principles</div>
+      <div class="grid-2">
+        <div class="card principle">
+          <div class="icon">❤️</div>
+          <div>
+            <h3>Human-Centered Services</h3>
+            <p>People before process. Every engagement is designed around the people it serves.</p>
+          </div>
+        </div>
+        <div class="card principle">
+          <div class="icon">⚡</div>
+          <div>
+            <h3>Speed with Purpose</h3>
+            <p>Move fast where it matters, and deliberately where it counts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h2>🔍 What We Do</h2>
-    <ul>
-      <li><strong>Professional services</strong>
-        <ul>
-          <li>Physical sciences</li>
-          <li>Document Management</li>
-          <li>Staff augmentation</li>
-        </ul>
-      </li>
-      <li><strong>Technology services</strong>
-        <ul>
-          <li>Software and Data Engineering</li>
-          <li>AI Engineering</li>
-          <li>Systems Integration</li>
-        </ul>
-      </li>
-    </ul>
+    <section class="reveal">
+      <div class="section-label">What We Do</div>
+      <div class="grid-2">
+        <div class="card service">
+          <h3><span>🔬</span>Professional Services</h3>
+          <ul>
+            <li>Physical sciences</li>
+            <li>Document management</li>
+            <li>Staff augmentation</li>
+          </ul>
+        </div>
+        <div class="card service">
+          <h3><span>💻</span>Technology Services</h3>
+          <ul>
+            <li>Software and data engineering</li>
+            <li>AI engineering</li>
+            <li>Systems integration</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <h2>🌐 Let's Connect</h2>
-    <p>Codinci partners with you every step of the way.</p>
-    <p>📧 <a href="mailto:bcc@codinci.com">bcc@codinci.com</a><br>
-       🌍 <a href="http://codinci.com" target="_blank">codinci.com</a></p>
+    <section class="reveal">
+      <div class="contact">
+        <h2>Let&rsquo;s connect</h2>
+        <p>Codinci partners with you every step of the way.</p>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="mailto:brightoaks@gmail.com">📧 brightoaks@gmail.com</a>
+          <a class="btn btn-ghost" href="http://codinci.com" target="_blank" rel="noopener">🌍 codinci.com</a>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <footer>
     &copy; 2025 Codinci
-    | <a href="mailto:bcc@codinci.com">Contact Us</a>
+    | <a href="mailto:brightoaks@gmail.com">Contact Us</a>
   </footer>
 
   <script>
@@ -291,6 +674,17 @@
       const mobileMenu = document.getElementById('mobileMenu');
       mobileMenu.classList.toggle('show');
     }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   </script>
 
 </body>
